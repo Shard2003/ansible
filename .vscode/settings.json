@@ -1,0 +1,4 @@
+{
+    "ansible.executionEnvironment.enabled": true,
+    "ansible.executionEnvironment.containerEngine": "podman"
+}
