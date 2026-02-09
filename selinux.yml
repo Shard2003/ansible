@@ -1,0 +1,8 @@
+---
+- name: create a selinu
+  hosts: all
+  vars:
+    - selinux_policy: targeted
+    - selinux_state: enforcing
+  roles:
+    - role: rhel-system-roles.selinux

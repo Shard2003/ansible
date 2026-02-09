@@ -1,0 +1,37 @@
+---
+- name: create a web content
+  hosts: dev
+  become: true
+  tasks:
+    - name: create a group apache.
+      ansible.builtin.group:
+        name: apache 
+        state: present
+
+    - name: create a directory
+      ansible.builtin.file:
+        path: /webdev
+        group: apache
+        mode: '2775'
+        state: directory
+        setype: httpd_sys_content_t
+
+    - name: create alink
+      ansible.builtin.file:
+        src: /webdev
+        dest: /var/www/html/webdev
+        state: link
+        setype: httpd_sys_content_t
+
+    - name: write a content Developmet
+      ansible.builtin.copy:
+        content: Developmet
+        dest: /var/www/html/webdev/index.html
+        setype: httpd_sys_content_t
+
+    - name: connect
+      ansible.posix.firewalld:
+        service: http 
+        immediate: true
+        state: enabled
+        permanent: true

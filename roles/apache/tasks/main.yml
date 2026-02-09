@@ -1,0 +1,32 @@
+---
+- name: install packages
+  ansible.builtin.dnf:
+    name: 
+      - httpd
+      - firewalld
+    state: present
+
+- name: stare and servicr and enabled
+  ansible.builtin.service:
+    name: httpd
+    state: started
+    enabled: true
+
+- name: stare and servicr and enabled
+  ansible.builtin.service:
+    name: firewalld
+    state: started
+    enabled: true
+
+- name: connect with httpd
+  ansible.posix.firewalld:
+    service: http 
+    immediate: true
+    state: enabled
+    permanent: true
+
+- name: use template
+  ansible.builtin.template:
+    src: template.j2
+    dest: /var/www/html/index.html 
+ 

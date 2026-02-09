@@ -1,4 +1,5 @@
 {
     "ansible.executionEnvironment.enabled": true,
-    "ansible.executionEnvironment.containerEngine": "podman"
+    "ansible.executionEnvironment.containerEngine": "podman",
+    "ansible.python.interpreterPath": "/bin/python"
 }

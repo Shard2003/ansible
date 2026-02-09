@@ -1,0 +1,6 @@
+#some hardware report info of system
+INVENTORY_HOSTNAME= hostname 
+BIOS_VERSION= biosversion 
+TOTAL_MEMORY= memory 
+SDA_SIZE= sdasize
+SDB_SIZE= sdbsize

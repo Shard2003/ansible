@@ -1,0 +1,25 @@
+---
+- name: create repo for all
+  hosts: all
+  become: true
+  tasks:
+    - name: create a AppStream repo
+      ansible.builtin.yum_repository:
+        name: AppStream
+        description: "EX407"
+        baseurl:
+          - https://mirror.stream.centos.org/10-stream/AppStream/x86_64/os/
+        enabled: yes
+        gpgcheck: false
+
+    - name: create a BaseOS repo
+      ansible.builtin.yum_repository:
+        name: BaseOS
+        description: "EX407 BaseOS"
+        baseurl:
+          - https://mirror.stream.centos.org/10-stream/BaseOS/x86_64/os/
+        enabled: yes
+        gpgcheck: false
+        state: present
+
+        

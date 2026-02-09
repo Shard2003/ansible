@@ -1,0 +1,41 @@
+---
+- name: create a lvm
+  hosts: all
+  become: true
+  tasks: 
+    - name: Show message 
+      ansible.builtin.debug:
+        msg: "Device is not present"
+      when: ansible_lvm.vgs is not defined
+
+    - name: task 2 cretae a partition for 1500m
+      ansible.builtin.lvol:
+        vg: myvg
+        lv: mylv
+        size: 1500m
+      when: ansible_lvm.vgs.myvg.free_g >= "1.6"
+
+    - name: task 3 show message for requested size is not present
+      ansible.builtin.debug:
+        msg: "Rquested size is not present"
+      when: ansible_lvm.vgs.myvg.free_g < "1.6"
+
+    - name: task 4 create a partition 800m
+      ansible.builtin.lvol:
+        vg: myvg
+        lv: mylv
+        size: 800m
+      when: ansible_lvm.vgs.myvg.free_g < "1.6"
+
+    - name: task 5 set file tpye
+      ansible.builtin.filesystem:
+        fstype: ext4
+        dev: /dev/myvg/mylv
+
+    - name: mount partition
+      ansible.builtin.mount:
+        src: /dev/myvg/mylv
+        path: /mnt/new1
+        fstype: ext4
+        state: mounted
+        

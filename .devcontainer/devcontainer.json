@@ -1,8 +1,9 @@
 {
   "name": "ansible-dev-container-codespaces",
-  "image": "ghcr.io/ansible/community-ansible-dev-tools:latest",
+  "image": "utility.lab.example.com:5000/ansible-automation-platform-25/ansible-dev-tools-rhel8:latest",
   "containerUser": "root",
   "runArgs": [
+    " --tls-verify=false",
     "--security-opt",
     "seccomp=unconfined",
     "--security-opt",

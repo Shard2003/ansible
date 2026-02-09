@@ -1,0 +1,28 @@
+---
+- name: write a content 
+  hosts: dev
+  become: true
+  tasks:
+    - name: write a content Development
+      ansible.builtin.copy:
+        content: Development
+        dest: /etc/issue
+
+- name: write a content 
+  hosts: test
+  become: true
+  tasks:
+    - name: write a content Testing
+      ansible.builtin.copy:
+        content: Testing
+        dest: /etc/issue
+
+
+- name: write a content 
+  hosts: prod
+  become: true
+  tasks:
+    - name: write a content Production
+      ansible.builtin.copy:
+        content: Production
+        dest: /etc/issue

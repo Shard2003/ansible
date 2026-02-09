@@ -1,0 +1,30 @@
+---
+- name: create a hwreport
+  hosts: all
+  become: true
+  tasks:
+    - name: download file
+      ansible.builtin.copy:
+        src: ./hwreport.empty
+        dest: /root/hwreport.txt
+
+    - name: replace value
+      ansible.builtin.replace:
+        path: /root/hwreport.txt
+        regexp: "{{ item.oldvalue }}"
+        replace: "{{ item.newvalue }}"
+      loop:
+        - oldvalue: hostname
+          newvalue: "{{ ansible_hostname | default('NONE') }}"
+
+        - oldvalue: biosversion
+          newvalue: "{{ ansible_bios_version | default('NONE') }}"
+
+        - oldvalue: memory
+          newvalue: "{{ ansible_memtotal_mb | default('NONE') }}"
+
+        - oldvalue: sdasize
+          newvalue: "{{ ansible_devices.sda.size | default('NONE') }}"
+
+        - oldvalue: sdbsize
+          newvalue: "{{ ansible_devices.sdb.size | default('NONE') }}"
